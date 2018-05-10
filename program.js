@@ -1,12 +1,16 @@
 const fs = require('fs')
-const path = process.argv[2];
+const path = require('path')
 
-fs.readFile(path, (error, data) => {
+const fileList = process.argv[2];
+const fileExtension = '.'+process.argv[3];
+
+fs.readdir(fileList, (error, files) => {
     if(error)
         console.error(error)
-    let fileContent = data.toString()
-    let newLineCounter = fileContent.split('\n').length - 1
-    console.log(newLineCounter)
+    files.forEach( (file, index) => {
+        if(path.extname(file) == fileExtension)
+            console.log(file);
+    })
 })
 
 
