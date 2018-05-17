@@ -1,17 +1,16 @@
-const myModule = require('./my_module.js')
-const fileList = process.argv[2]
-const fileExtension = process.argv[3]
+const http = require('http')
+const url = process.argv[2]
 
-printFilelist = (error, files) => {
-    if(error)
-        console.log(error)
 
-    files.forEach( (file, index) => {
-        console.log(file)
+http.get(url, (response) => {
+
+    response.setEncoding('utf8')
+    
+    response.on('data', (data) => {
+        console.log(data)
     })
-}
-
-myModule(fileList,fileExtension, printFilelist)
+    response.on('error', console.error(error))
+}).on('error', console.error(error))
 
 
 
